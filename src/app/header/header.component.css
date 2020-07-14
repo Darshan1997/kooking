@@ -1,0 +1,10 @@
+.example-spacer {
+    flex: auto;
+  }
+
+.active{
+  color: aquamarine;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+}
