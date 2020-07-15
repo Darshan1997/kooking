@@ -1,8 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { recipe } from '../../models/recipe.model'
 import { RecipeService } from '../recipe.service'
 import { error } from '@angular/compiler/src/util';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { addRecipeDialog } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,46 +17,50 @@ export class RecipeListComponent implements OnInit {
   items: recipe[] = []
 
 
-  constructor(public dialog: MatDialog, private recipeService: RecipeService) { }
+  constructor(
+    public dialog: MatDialog,
+    private recipeService: RecipeService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon("detail", this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/icons/detail.svg"))
+    this.matIconRegistry.addSvgIcon("edit", this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/icons/edit.svg"))
+
+  }
 
   ngOnInit(): void {
     this.getRecipe()
+    this.recipeService.recipeChanged.subscribe(recipes => {
+      console.log(recipes);
+      this.items = recipes
+    }, error => {
+      alert("error occured")
+    })
+
   }
 
   getRecipe() {
-    this.recipeService.getRecipe().subscribe(recipes => {
-      console.log(recipes);
-      
-      this.items = recipes
+    this.recipeService.getRecipe().subscribe()
+  }
 
-    }, error => {
-      console.log(error);
+  deleteRecipe(id: string) {
+    //add loader
+    this.recipeService.deleteRecipe(id).subscribe(data => {
+      this.recipeService.getRecipe().subscribe()
     })
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: { name: "hello" }
-    });
+  editRecipe(recipe: recipe): void {
+    const dialogconfig = new MatDialogConfig()
+    console.log([recipe]);
+    dialogconfig.data = [recipe]
+    dialogconfig.width = "600px"
+    const dialogRef = this.dialog.open(addRecipeDialog,dialogconfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      this.recipeService.getRecipe().subscribe()
+     });
+
   }
 
 }
 
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: './recipedialog.html',
-})
-export class DialogOverviewExampleDialog {
-
-  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}

@@ -2,6 +2,7 @@
     <mat-toolbar-row>
         <span routerLink="/">Demo App</span>
         <span class="example-spacer"></span>
+        <button mat-button *ngIf="routeUrl==='/recipe'" (click)="openDialog()">Add Recipe</button>
         <button mat-button routerLink="/recipe" [routerLinkActiveOptions]="{exact:
                 true}" routerLinkActive="active">Recipe</button>&nbsp;
         <button mat-button routerLink="/shopping" [routerLinkActiveOptions]="{exact:

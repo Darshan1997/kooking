@@ -47,13 +47,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { RecipeComponent } from './recipe/recipe.component';
-import { RecipeListComponent, DialogOverviewExampleDialog} from './recipe/recipe-list/recipe-list.component';
+import { RecipeListComponent} from './recipe/recipe-list/recipe-list.component';
 import { RecipeDetailsComponent } from './recipe/recipe-details/recipe-details.component';
 import { RecipeItemComponent } from './recipe/recipe-list/recipe-item/recipe-item.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent,addRecipeDialog} from './header/header.component';
 import { ShoppingComponent } from './shopping/shopping.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -64,13 +65,14 @@ import { HttpClientModule } from '@angular/common/http';
     RecipeItemComponent,
     HeaderComponent,
     ShoppingComponent,
-    DialogOverviewExampleDialog
+    addRecipeDialog
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,
@@ -118,6 +120,7 @@ import { HttpClientModule } from '@angular/common/http';
     
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [addRecipeDialog]
 })
 export class AppModule { }

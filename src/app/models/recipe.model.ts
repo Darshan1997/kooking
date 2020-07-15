@@ -1,6 +1,8 @@
 export interface recipe {
-    name: string,
+    id?:string,
+    recipeName: string,
+    ingredients: string,
     category: string,
-    description: string,
-    image: string
+    recipe:string,
+    imageurl: string
 }

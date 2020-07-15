@@ -1,21 +1,26 @@
 <div style="padding: 10px;">
+  <p *ngIf="items.length==0" style="text-align: center;">
+    No Recipe Found
+  </p>
   <mat-grid-list cols="6" rowHeight="1:2" gutterSize="5px">
     <mat-grid-tile *ngFor="let item of items">
       <mat-card>
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{item.name}}</mat-card-title>
+          <img mat-card-avatar src="{{item.imageurl}}" class="example-header-image">
+          <mat-card-title>{{item.recipeName}}</mat-card-title>
           <mat-card-subtitle>{{item.category}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            {{item.discription}}
+        <img mat-card-image src="{{item.imageurl}}" alt="Photo of a Shiba Inu" width="150px" height="150px">
+        <mat-card-content style="height: 30px;">
+          <p style="text-align: center;">
+            {{item.recipe}}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="openDialog()">Details</button>
-          <button mat-button>SHARE</button>
+          
+          <mat-icon class="pointer" matTooltip="recipe details" aria-hidden="false" aria-label="detail" svgIcon="detail" (click)="openDialog()"></mat-icon>
+          <mat-icon class="pointer" matTooltip="edit recipe" aria-hidden="false" aria-label="edit" svgIcon="edit" (click)="editRecipe(item)"></mat-icon>
+          <mat-icon class="pointer" matTooltip="delete recipe" aria-hidden="false" aria-label="Example home icon" (click)="deleteRecipe(item.id)">delete</mat-icon>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>

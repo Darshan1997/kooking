@@ -1,0 +1,61 @@
+<div style="text-align: center;">
+    <h3 class="text-accent" mat-dialog-title>Add Your Recipe</h3>
+    <hr>
+    <form [formGroup]="recipeForm" (ngSubmit)="saveRecipe()">
+        <div mat-dialog-content>
+            <p>
+                <mat-form-field class="addrecipe-fields-full-width" appearance="outline">
+                    <mat-label>Recipe Name</mat-label>
+                    <input matInput formControlName="recipeName" placeholder="Your recipe name">
+                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="addrecipe-fields-full-width" appearance="outline">
+                    <mat-label>ingredients</mat-label>
+                    <input matInput formControlName="ingredients" placeholder="recipe ingredients">
+                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+            </p>
+
+
+            <p>
+                <mat-form-field class="addrecipe-fields-full-width" appearance="fill">
+                    <mat-label>category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option value="indian">indian</mat-option>
+                        <mat-option value="italian">italian</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="addrecipe-fields-full-width" appearance="fill">
+                    <mat-label>recipe</mat-label>
+                    <textarea matInput formControlName="recipe"></textarea>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field class="addrecipe-fields-full-width" appearance="outline">
+                    <mat-label>Recipe imageURL</mat-label>
+                    <input matInput formControlName="imageurl" placeholder="imageURL">
+                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+            </p>
+
+        </div>
+    </form>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button>Cancel</button>
+
+        <button *ngIf="editData" mat-raised-button color="primary" (click)="updateRecipe()">update</button>
+        <button *ngIf="!editData" mat-raised-button color="primary" (click)="saveRecipe()">Save</button>
+    </div>
+
+</div>
